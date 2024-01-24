@@ -35,7 +35,7 @@ function App() {
       <header className="App-header">
         <div className='App-header-logos'>
           <div>
-            <p>GPU Animated Icon</p>
+            <p>CSS Animated Icon</p>
             <img src={logo} className="App-logo" alt="logo" />
           </div>
 
@@ -46,6 +46,16 @@ function App() {
         </div>
 
         <ActionButtons />
+
+        <div className='App-header-form-buttons'>
+          <input type="text" placeholder="Type something..." />
+
+          <select name="cars" id="cars">
+            <option value="volvo">Volvo</option>
+            <option value="mercedes">Mercedes</option>
+            <option value="audi">Audi</option>
+          </select>
+        </div>
       </header>
     </div>
   );

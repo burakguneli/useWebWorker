@@ -41,8 +41,15 @@
   display: flex;
   gap: 20px;
   flex-direction: column;
-  margin-top: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
+
+.App-header-form-buttons {
+  display: flex;
+  gap: 20px;
+}
+
 
 button {
   padding: 20px;
@@ -56,10 +63,24 @@ button {
   font-size: 24px;
 }
 
+input, select {
+  padding: 20px;
+  border-radius: 12px;
+  font-size: 24px;
+}
+
+input:hover, select:hover {
+  border: 8px solid red;
+}
+
 button:hover {
   background-color: #61dafb;
-  border-color: #282c34;
   color: #282c34;
+  border: 8px solid red;
+}
+
+p:hover {
+  text-decoration: underline;
 }
 
 .App-link {
