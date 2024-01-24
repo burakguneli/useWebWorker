@@ -8,15 +8,12 @@ import { useEffect, useRef } from 'react';
  * @returns {function} - A function to post a message to the Web Worker.
  */
 const useWebWorker = (functionToBeExecutedByWorker, callbackFunction) => {
-  const workerRef = useRef();
-
   // Create a new Web Worker from the provided function
   const blob = new Blob([`self.onmessage = ${functionToBeExecutedByWorker}`], {
     type: 'application/javascript',
   });
 
   const worker = new Worker(URL.createObjectURL(blob));
-  workerRef.current = worker;
 
   // Handle messages from the worker
   worker.onmessage = (event) => {
