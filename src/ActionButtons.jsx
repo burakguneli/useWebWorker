@@ -5,20 +5,20 @@ const ActionButtons = () => {
     const evilGenerateTotalSum = (amount) => {
         const result = [...Array(amount).keys()].reduce((acc, curr) => acc + curr, 0)
 
-        alert(result);
+        console.log('evilGenerateTotalSum result:', result);
     }
 
     const generateTotalSum = (message) => {
         const {data: amount} = message;
 
         const result = [...Array(amount).keys()].reduce((acc, curr) => acc + curr, 0)
-    
+
         self.postMessage(result);
     }
 
     const generateTotalSumWithWorker = useWebWorker(
         generateTotalSum,
-        (data) => alert(data)
+        (data) => console.log('generateTotalSumWithWorker result:',data)
     );
 
     return (
