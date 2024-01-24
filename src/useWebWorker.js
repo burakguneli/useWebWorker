@@ -8,28 +8,41 @@ import { useEffect, useRef } from 'react';
  * @returns {function} - A function to post a message to the Web Worker.
  */
 const useWebWorker = (functionToBeExecutedByWorker, callbackFunction) => {
-  // Create a new Web Worker from the provided function
-  const blob = new Blob([`self.onmessage = ${functionToBeExecutedByWorker}`], {
-    type: 'application/javascript',
-  });
+  const workerRef = useRef();
 
-  const worker = new Worker(URL.createObjectURL(blob));
+  useEffect(() => {
+    // Create a new Web Worker from the provided function
+    const blob = new Blob([`self.onmessage = ${functionToBeExecutedByWorker}`], {
+      type: 'application/javascript',
+    });
 
-  // Handle messages from the worker
-  worker.onmessage = (event) => {
-    // Handle the result sent by the worker
-    callbackFunction(event.data)
-  };
+    const worker = new Worker(URL.createObjectURL(blob));
+    workerRef.current = worker;
 
-  // Handle errors from the worker
-  worker.onerror = (error) => {
-    console.error('Error in worker:', error);
-  };
+    // Handle messages from the worker
+    worker.onmessage = (event) => {
+      // Handle the result sent by the worker
+      callbackFunction(event.data)
+    };
+
+    // Handle errors from the worker
+    worker.onerror = (error) => {
+      console.error('Error in worker:', error);
+    };
+
+    return () => {
+      // Terminate the worker when the component unmounts
+      if (workerRef.current) {
+        workerRef.current.terminate();
+      }
+    };
+  }, [functionToBeExecutedByWorker, callbackFunction]);
 
   // Function to post a message to the worker
   const postMessageToWorker = (message) => {
-    if (worker) {
-      worker.postMessage(message);
+    if (workerRef.current) {
+
+      workerRef.current.postMessage(message);
     }
   };
 
