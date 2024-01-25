@@ -41,7 +41,6 @@ const useWebWorker = (functionToBeExecutedByWorker, callbackFunction) => {
   // Function to post a message to the worker
   const postMessageToWorker = (message) => {
     if (workerRef.current) {
-
       workerRef.current.postMessage(message);
     }
   };
